@@ -5,12 +5,19 @@
 }
 
 #vivid_note_content{
-	margin: 100px auto 0 auto;
+	margin: 50px auto 0 auto;
 	width: 60%;
-
 }
 
-#vivid_MT{
+#vivid_note_tool{
+	z-index: 100;
+	position: fixed;
+	width: 100px;
+	top: 200px;
+	right: 0;
+}
+
+/*#vivid_MT{
 	position: absolute;
 	width: 100px;
 	top: 200px;
@@ -21,4 +28,4 @@
 	width: 100px;
 	top: 220px;
 	right: 0;
-}
+}*/

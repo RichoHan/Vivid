@@ -1,7 +1,7 @@
 {
   "name": "Vivid",
   "description": "Taking note on websites",
-  "version": "0.1",
+  "version": "0.2",
   "permissions": [
     "<all_urls>",
     "activeTab"
