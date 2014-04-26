@@ -8,7 +8,7 @@ console.log(url);
 // );
 
 if($('#vivid_note_reformat').length == 0){
-	$('body').append('<div id="vivid_note_reformat">Test</div>');
+	$('body').append('<div id="vivid_note_reformat"></div>');
 	$('#vivid_note_reformat').append('<button id="vivid_MT">Translation</button>');
 	$('#vivid_note_reformat').append('<button id="vivid_PN">Picture Note</button>');
 
