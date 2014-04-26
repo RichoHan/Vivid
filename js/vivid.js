@@ -9,9 +9,9 @@ console.log(url);
 
 if($('#vivid_note_reformat').length == 0){
 	$('body').append('<div id="vivid_note_reformat">Test</div>');
-	$('#vivid_note_reformat').append('<button id="MT">Translation</button>');
-	$('#vivid_note_reformat').append('<button id="PN">Picture Note</button>');
-	
+	$('#vivid_note_reformat').append('<button id="vivid_MT">Translation</button>');
+	$('#vivid_note_reformat').append('<button id="vivid_PN">Picture Note</button>');
+
 	$('body').children().hide();
 	$('#vivid_note_reformat').show("slow");
 }else if($('#vivid_note_reformat').is(':visible')){
