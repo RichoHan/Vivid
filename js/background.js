@@ -1,12 +1,5 @@
-// myURL="about:blank"; //A default url just in case below code doesn't work
-// chrome.tabs.onUpdated.addListener(function(tabId,changeInfo,tab){ //onUpdated should fire when the selected tab is changed or a link is clicked 
-//     chrome.tabs.getSelected(null,function(tab){
-//         myURL=tab.url;
-//     });
-// });
-
 chrome.browserAction.onClicked.addListener(function(tab) {
-  chrome.tabs.executeScript({
-    file: "js/vivid.js"
-  });
+	chrome.tabs.executeScript({file: "js/jquery-2.1.0.min.js"},function () {
+		chrome.tabs.executeScript({file: "js/vivid.js"});
+	});
 });
