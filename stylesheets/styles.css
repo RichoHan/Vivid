@@ -1,5 +1,10 @@
-.vivid__reformat{
-	/*z-index: 1000;*/
+#vivid_note_reformat{
 	background-color: #96FED1;
-	/*height: 9999px;*/
+	width:100%;
+	height: 1000px;
+}
+
+#vivid_MT #vivid_PN{
+	width: 100px;
+	right: 0;
 }
