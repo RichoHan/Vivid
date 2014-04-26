@@ -3,6 +3,7 @@
   "description": "Taking note on websites",
   "version": "0.1",
   "permissions": [
+    "<all_urls>",
     "activeTab"
   ],
   "background": {

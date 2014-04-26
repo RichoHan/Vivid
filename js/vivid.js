@@ -1,16 +1,18 @@
 var url=window.location.toString();
-console.log(url);
-
-// $.getJSON("https://www.readability.com/api/content/v1/parser?url="+ url +"&token=y7jU94FDeBxY3YFcBmBNz9ExFTacmPxJ&callback=?",
-// 	function (data) {
-// 		console.log(data);
-// 	}
-// );
+// console.log(url);
 
 if($('#vivid_note_reformat').length == 0){
-	$('body').append('<div id="vivid_note_reformat"></div>');
-	$('#vivid_note_reformat').append('<button id="vivid_MT">Translation</button>');
-	$('#vivid_note_reformat').append('<button id="vivid_PN">Picture Note</button>');
+	$.getJSON("https://www.readability.com/api/content/v1/parser?url="+ url +"&token=5a2ddd762b80b65f061bd17c984e61f32b50bdf4",
+		function (data) {
+			var content = data.content;
+			// console.log(content);
+			$('body').append('<div id="vivid_note_reformat"></div>');
+			$('#vivid_note_reformat').append('<div id="vivid_note_content"></div>');
+			$('#vivid_note_content').append(content);
+			$('#vivid_note_reformat').append('<button id="vivid_MT">Translation</button>');
+			$('#vivid_note_reformat').append('<button id="vivid_PN">Picture Note</button>');
+		}
+	);
 
 	$('body').children().hide();
 	$('#vivid_note_reformat').show("slow");
