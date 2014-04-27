@@ -1,4 +1,2 @@
 Vivid
 =====
-
-Note-taking tool
