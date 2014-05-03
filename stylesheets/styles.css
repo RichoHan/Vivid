@@ -1,20 +1,34 @@
 #vivid_note_reformat{
-	/*background-color: #FFF8D7;*/
+	background-color: #6FB7B7;
 	width:100%;
 	height: 100%;
+	color: 
 }
 
 #vivid_note_content{
-	margin: 50px auto 0 auto;
+	margin: 0 auto 0 auto;
 	width: 60%;
 }
 
 #vivid_note_tool{
-	z-index: 100;
+	background-color: #003D79;
+	width: 120px;
+	height: 100%;
+	text-align: center;
 	position: fixed;
-	width: 100px;
-	top: 200px;
+	z-index: 100;
+	top: 0;
 	right: 0;
+}
+
+#vivid_BK{
+	margin-top: 200px;
+	width: 100px;
+}
+
+#vivid_SV, #vivid_MT, #vivid_PN{
+	margin-top: 10px;
+	width: 100px;
 }
 
 /*#vivid_MT{
