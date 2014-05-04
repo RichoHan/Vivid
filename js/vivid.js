@@ -11,8 +11,9 @@ if($('#vivid_note_reformat').length == 0){
 			$('#vivid_note_reformat').append('<div id="vivid_note_tool"></div>');
 			$('#vivid_note_tool').append('<button id="vivid_BK" type="button" class="btn btn-primary">Back</button>');
 			$('#vivid_note_tool').append('<button id="vivid_MT" type="button" class="btn btn-primary">Translation</button>');
-			$('#vivid_note_tool').append('<button id="vivid_PN" type="button" class="btn btn-danger">Picture Note</button>');
+			$('#vivid_note_tool').append('<button id="vivid_PN" type="button" class="btn btn-primary">Picture Note</button>');
 			$('#vivid_note_tool').append('<button id="vivid_SV" type="button" class="btn btn-primary">Save</button>');
+			// $('#vivid_note_reformat').append('<script> $("button").click(function() { if($(this).attr("id")=="vivid_BK"){alert("test")} }); </script>');
 		}
 	);
 
@@ -25,3 +26,8 @@ if($('#vivid_note_reformat').length == 0){
 	$('body').children().hide();
 	$('#vivid_note_reformat').show("slow");
 }
+
+var script=document.createElement('script');
+// script.type = 'text/javascript';
+script.src = chrome.extension.getURL('js/pic_note.js');
+$("body").append(script);
