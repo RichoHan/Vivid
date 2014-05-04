@@ -1,12 +1,13 @@
 #vivid_note_reformat{
 	background-color: #6FB7B7;
 	width:100%;
-	height: 100%;
-	color: 
+	/*height: 100%;*/
+	/*color: */
 }
 
 #vivid_note_content{
 	margin: 0 auto 0 auto;
+	padding-top: 50px;
 	width: 60%;
 }
 
