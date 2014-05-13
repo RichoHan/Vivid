@@ -26,8 +26,3 @@ if($('#vivid_note_reformat').length == 0){
 	$('body').children().hide();
 	$('#vivid_note_reformat').show("slow");
 }
-
-var script=document.createElement('script');
-// script.type = 'text/javascript';
-script.src = chrome.extension.getURL('js/pic_note.js');
-$("body").append(script);
