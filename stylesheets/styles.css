@@ -6,7 +6,13 @@
 #vivid_note_content{
 	margin: 0 auto 0 auto;
 	padding-top: 50px;
+	padding-bottom: 50px;
 	width: 60%;
+}
+
+.vivid_note_content_p{
+	line-height: 30px;
+	font-size: 18px;
 }
 
 #vivid_note_tool{
