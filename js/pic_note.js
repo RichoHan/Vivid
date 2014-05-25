@@ -4,7 +4,7 @@ if(!init){
 	var show = true;
 	var lock = false;
 	var img = '<button onclick="loadImage()" type="button" class="btn btn-primary">Load</button>';
-	var title = 'Image Search - ';
+	var popover_title = 'Image Search - ';
 	var but_1 = '';
 	var but_2 = '';
 	var but_3 = '';
@@ -22,62 +22,43 @@ if(!init){
 	var p = $('.vivid_note_content_p');
 	p
 	.html(function(index, oldHtml) {
-		return oldHtml.replace(/\b(\w+?)\b/g, '<span class="keyword" id="keyword_$1' + '' + '"" style="cursor:pointer; background:grey;">$1</span>')
+		return oldHtml.replace(/\b(\w+?)\b/g, '<span class="keyword" id="keyword_$1' + '' + '"" style="cursor:pointer; background:grey;" data-toggle="modal" data-target="#searchBox">$1</span>')
 	})
 	.click(function(event) { 
-		// console.log($1.text());
-		// $(this).popover('show');
-		// alert(event.target.innerHTML) 
+		var keyword = event.target.innerHTML;
+		$('#myModalLabel').text('Image Search : ' + keyword);
+		$('.modal-body').empty();
+		$('.modal-body').append('<img id="search_img" src="http://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Grass_dsc08672-nevit.jpg/220px-Grass_dsc08672-nevit.jpg" width="220" height="165"><br/>');
+		$('.modal-body').append('<br/>');
+		$('.modal-body').append('<button type="button" class="searchBtn btn btn-success" id="prev_searchBtn">Previous</button>');
+		$('.modal-body').append('<button type="button" class="searchBtn btn btn-success" id="next_searchBtn">Next</button>');
+		// var enc = $('<div/>').text('<script type="text/javascript">  function test() {    a = 5;   }<\/script>').html();
 	});
 
-	// Keyword click events
-	var keyword = $('.keyword');
-	keyword
+	$('.keyword')
 	.click(function(event) {
+		// alert('Hello');
+	});
 
-	})
-	.popover({title: title+$(this).text(), html: true, content: function () {
-
-		if(show){
-			count = 0;
-			img = '<button id="loadButton" type="button" class="btn btn-success">Load</button>';
-			// onclick="loadImage('+$(this).text()+')"
-			but_1 = '';
-			but_2 = '';
-			but_3 = '';
+	// Search Events
+	$('#searchBox')
+	.on('shown.bs.modal', function () {
+		var prev_search = function () {
+			// alert('Hello');
+			$('#search_img').attr('src', '');
 		}
-		show = false;
-		lock = true;
+		$('#prev_searchBtn').click(function(event) {
+			prev_search();
+		});
 
-		return img + but_1 + but_3 + but_2;
-	}})
-	// .parent().delegate('button#loadButton', 'click', function() {
-	// 	console.log('World!');
-	// });
-
-	.on('shown.bs.popover', function () {
-		var target_word = $(this).text();
-		var loadImage = function(input_txt) {
-	        // alert('loadImage!');
-	        console.log(input_txt);
-	        // img = '<img height="200" src="image/cat.png" />';
-			// but_1 = '';
-			// if(img_link.length==1)
-				// but_2 = '';
-			// else
-			// but_2 = '<button id="r_search" onclick="r_search_img()" type="button" class="btn btn-primary btn-xs" >〉</button>';
-			// but_3 = '<button onclick="tagImage()" type="button" class="btn btn-primary btn-xs" style="margin-right:30px;">Select</button>'
-			// $('#keyword_'+input_txt).popover('hide');
-			// $('#keyword_'+input_txt).popover('show');
-	    };
-
-	    $("#loadButton").click(function(event) {
-	    	loadImage(target_word);
-	    	$('#keyword_'+target_word).popover('hide');
-	    	// $('#keyword_'+target_word).popover('show');
-	    	// $(this).parent().popover('hide');
-	    });
-		// console.log('popover shown!');
+		var next_search = function () {
+			// alert('Hello');
+			$('#search_img').attr('src', 'http://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Grass_dsc08672-nevit.jpg/220px-Grass_dsc08672-nevit.jpg');
+		}
+		$('#next_searchBtn').click(function(event) {
+		// 	alert('Hello');
+			next_search();
+		});
 	});
 
 }
