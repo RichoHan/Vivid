@@ -13,7 +13,7 @@ chrome.browserAction.onClicked.addListener(function(tab) {
 					chrome.tabs.insertCSS({file: "css/bootstrap.min.css"});
 					chrome.tabs.insertCSS({file: "css/bootflat.min.css"});
 					// chrome.tabs.executeScript({file: "js/vivid.js"});
-					chrome.tabs.executeScript({code: "var pic_note_init = " + pic_note_init + ";" + "var vivid_init = " + vivid_init + ";"},function () {
+					chrome.tabs.executeScript({code: "var pic_note_init = " + pic_note_init + ";" + "var vivid_init = " + vivid_init + ";" + "var state = " + state + ";"},function () {
 						// insert js at the first time
 						chrome.tabs.executeScript({file: "js/vivid.js"});
 						chrome.tabs.executeScript({file: "js/pic_note.js"});

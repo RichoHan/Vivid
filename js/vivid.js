@@ -3,14 +3,23 @@ var url=window.location.toString();
 if(!vivid_init){
 	// Extract the pure content of the webpage
 	// $.getJSON("https://www.readability.com/api/content/v1/parser?url="+ url +"&token=5a2ddd762b80b65f061bd17c984e61f32b50bdf4",
-	$.getJSON("http://boilerpipe-web.appspot.com/extract?url=" + url + "&output=json",
+	// $.getJSON("http://boilerpipe-web.appspot.com/extract?url=" + url + "&output=json",
+	console.log('State:'+state);
+	console.log('Fetching...');
+	$.getJSON("http://juicer.herokuapp.com/api/article?url=" + url + "",
 		function (data) {
-			// console.log(data);
-			var content = data.response.content;
+			console.log(data);
+			var content = data.article.body;
 
 			$('body').append('<div id="vivid_note_reformat"></div>');
+			$('body').append('<div class="pic_area"></div>');
 			$('body').append('<div class="pic_area_left"></div>');
 			$('body').append('<div class="pic_area_right"></div>');
+			var divElem = d3.select(".pic_area");
+			var svgcanvas = divElem.append("svg:svg")
+				.attr("width", $( window ).width())
+				.attr("height", 2500)
+				.attr("id", "svgcanvas");
 
 			$('#vivid_note_reformat').append('<div id="vivid_note_content"></div>');
 			$('#vivid_note_content').append('<p class="vivid_note_content_p">'+content+'</p>');
@@ -21,25 +30,31 @@ if(!vivid_init){
 			$('#vivid_note_tool').append('<button id="vivid_PN" type="button" class="btn btn-primary">Picture Note</button>');
 			$('#vivid_note_tool').append('<button id="vivid_SV" type="button" class="btn btn-primary">Save</button>');
 
-
-			// <div class="tag_area_left"></div>
-        	// <div class="tag_area_right"></div>
 		}
 	);
 
 	$('body').children().hide();
+	
+	console.log('Showing');
 	$('#vivid_note_reformat').show();
+	$('.pic_area').show();
 	$('.pic_area_left').show();
 	$('.pic_area_right').show();
 
 }else if($('#vivid_note_reformat').is(':visible')){
 	$('body').children().show();
+
+	console.log('Hiding');
+	$('.pic_area').hide();
 	$('#vivid_note_reformat').hide();
 	$('.pic_area_left').hide();
 	$('.pic_area_right').hide();
 
 }else{
 	$('body').children().hide();
+
+	console.log('Showing');
+	$('.pic_area').show();
 	$('#vivid_note_reformat').show();
 	$('.pic_area_left').show();
 	$('.pic_area_right').show();
