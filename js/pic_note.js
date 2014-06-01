@@ -9,6 +9,13 @@ if(!pic_note_init){
 	var but_2 = '';
 	var but_3 = '';
 
+	var img_urls_count = 0;
+	var tmp_img_urls = new Array();
+	tmp_img_urls = [];
+
+	var keyword_left;
+	var keyword_top;
+
 	// Button events
 	$("#vivid_BK").click(function() { 
 		alert("test");
@@ -22,23 +29,9 @@ if(!pic_note_init){
 	var p = $('.vivid_note_content_p');
 	p
 	.html(function(index, oldHtml) {
-		return oldHtml.replace(/\b(\w+?)\b/g, '<span class="keyword" id="keyword_$1' + '"" style="cursor:pointer; background:grey;" data-toggle="modal" data-target="#searchBox">$1</span>')
+		return oldHtml.replace(/\b(\w+?)\b/g, '<span class="keyword" id="keyword_$1' + '"" style="cursor:pointer;" data-toggle="modal" data-target="#searchBox">$1</span>')
 	})
 	.click(function(event) { 
-		// var keyword = event.target.innerHTML;
-		// $('#myModalLabel').text(keyword);
-
-		// // Modal Body
-		// $('.modal-body').empty();
-		// $('.modal-body').append('<img id="search_img" src="http://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Grass_dsc08672-nevit.jpg/220px-Grass_dsc08672-nevit.jpg" width="220" height="165"><br/>');
-		// $('.modal-body').append('<br/>');
-		// $('.modal-body').append('<button type="button" class="searchBtn btn btn-success" id="prev_searchBtn">Previous</button>');
-		// $('.modal-body').append('<button type="button" class="searchBtn btn btn-success" id="next_searchBtn">Next</button>');
-
-		// // Modal Footer
-		// $('.modal-footer').empty();
-		// $('.modal-footer').append('<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>');
-		// $('.modal-footer').append('<button type="button" class="btn btn-primary" id="select_imgBtn">Select</button>');
 	});
 
 	// Mouse Events
@@ -58,15 +51,51 @@ if(!pic_note_init){
 		}
 	})
 	.click(function(event) {
-		// var keyword = event.target.innerHTML;
+
 		var keyword = $(this).text();
 		var uid = guid();
+
 		$('#myModalLabel').text(keyword + '_' + uid);
 		$(this).attr('id', 'keyword_' + keyword + '_' + uid);
 
+		keyword_left = $(this).offset().left;
+		keyword_top = $(this).offset().top;
+
+		// ImageNet
+		// http://www.image-net.org/api/text/imagenet.synset.geturls?wnid=[wnid]
+
+		$.ajax({
+			url: 'http://image-net.org/search?q='+keyword,
+			type: 'GET',
+			async: false,
+			success: function(data) {
+				var res = $(data).find('span.result_synset').parent("a").attr("href");
+				var wnid = res.split('=')[1];
+				$.ajax({
+					url: 'http://www.image-net.org/api/text/imagenet.synset.geturls?wnid='+wnid,
+					type: 'GET',
+					async: false,
+
+					success: function(img_urls) {
+						var res = img_urls.split('\n')
+						img_urls_count = 0;
+						tmp_img_urls = [];
+						tmp_img_urls = tmp_img_urls.concat(res);
+						console.log(tmp_img_urls[img_urls_count]);
+					},
+					error: function(err){
+						console.log(err);
+					}
+				});
+			},
+			error: function(err){
+				console.log(err);
+			}
+		});
+
 		// Modal Body
 		$('.modal-body').empty();
-		$('.modal-body').append('<img id="search_img" src="http://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Grass_dsc08672-nevit.jpg/220px-Grass_dsc08672-nevit.jpg" width="220" height="165"><br/>');
+		$('.modal-body').append('<img id="search_img" src="' + tmp_img_urls[img_urls_count] + '" width="220" height="165"><br/>');
 		$('.modal-body').append('<br/>');
 		$('.modal-body').append('<button type="button" class="searchBtn btn btn-success" id="prev_searchBtn">Previous</button>');
 		$('.modal-body').append('<button type="button" class="searchBtn btn btn-success" id="next_searchBtn">Next</button>');
@@ -74,21 +103,26 @@ if(!pic_note_init){
 		// Modal Footer
 		$('.modal-footer').empty();
 		$('.modal-footer').append('<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>');
-		$('.modal-footer').append('<button type="button" class="btn btn-primary" id="select_imgBtn">Select</button>');
+		$('.modal-footer').append('<button type="button" class="btn btn-primary" data-dismiss="modal" id="select_imgBtn">Select</button>');
+
+		console.log('Succeed!');
+
 	});
 
 	// Search Events
 	$('#searchBox')
 	.on('shown.bs.modal', function () {
 		var prev_search = function () {
-			$('#search_img').attr('src', '');
+			$('#search_img').attr('src', tmp_img_urls[--img_urls_count]);
 		}
 		$('#prev_searchBtn').click(function(event) {
-			prev_search();
+			if(img_urls_count>0)
+				prev_search();
 		});
 
 		var next_search = function () {
-			$('#search_img').attr('src', 'http://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Grass_dsc08672-nevit.jpg/220px-Grass_dsc08672-nevit.jpg');
+			if(img_urls_count<tmp_img_urls.length-1)
+				$('#search_img').attr('src', tmp_img_urls[++img_urls_count]);
 		}
 		$('#next_searchBtn').click(function(event) {
 			next_search();
@@ -100,12 +134,12 @@ if(!pic_note_init){
 			var obj_coordinate = $('#keyword_'+keyword_in).offset().left + $('#keyword_'+keyword_in).width()/2;
 			if(obj_coordinate<$( window ).width()/2){
 				d3.select(".pic_area_left").append("img")
-					.attr("src", 'http://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Grass_dsc08672-nevit.jpg/220px-Grass_dsc08672-nevit.jpg')
+					.attr("src", tmp_img_urls[img_urls_count])
 					.attr("width", "200")
 					.attr("id", "img_" + keyword_in);
 				
-				var x = $('#keyword_'+keyword_in).offset().left;
-				var y = $('#keyword_'+keyword_in).offset().top + $('#keyword_'+keyword_in).height()/2;
+				var x = keyword_left; // $('#keyword_'+keyword_in).offset().left;
+				var y = keyword_top + $('#keyword_'+keyword_in).height()/2; // $('#keyword_'+keyword_in).offset().top + $('#keyword_'+keyword_in).height()/2;
 				var h = $('#keyword_'+keyword_in).height();
 				// console.log('x: ' + x + ' y: ' + y);
 
@@ -115,12 +149,12 @@ if(!pic_note_init){
 			// 	left = false;
 			}else{
 				d3.select(".pic_area_right").append("img")
-					.attr("src", 'http://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Grass_dsc08672-nevit.jpg/220px-Grass_dsc08672-nevit.jpg')
+					.attr("src", tmp_img_urls[img_urls_count])
 					.attr("width", "200")
 					.attr("id", "img_" + keyword_in);
 				
-				var x = $('#keyword_'+keyword_in).offset().left;
-				var y = $('#keyword_'+keyword_in).offset().top + $('#keyword_'+keyword_in).height()/2;
+				var x = keyword_left; // $('#keyword_'+keyword_in).offset().left;
+				var y = keyword_top + $('#keyword_'+keyword_in).height()/2; // $('#keyword_'+keyword_in).offset().top + $('#keyword_'+keyword_in).height()/2;
 				var h = $('#keyword_'+keyword_in).height();
 				// console.log('x: ' + x + ' y: ' + y);
 
@@ -140,10 +174,13 @@ if(!pic_note_init){
 				.style("stroke", "#97CBFF")
 				.style("fill", "none");
 
-		}
+			$('#keyword_'+keyword_in).css('background','#98F5FF');
+
+		};
 
 		$('#select_imgBtn').click(function(event) {
 			tag_img($('#myModalLabel').text());
+			$('#searchBox').modal('hide');
 		});
 
 	});
