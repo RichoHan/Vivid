@@ -67,14 +67,20 @@ if(!pic_note_init){
 		$.ajax({
 			url: 'http://image-net.org/search?q='+keyword,
 			type: 'GET',
-			async: false,
+			// async: false,
+			// beforeSend: function() {
+			// 	$('body').append('<h1 style="position: absolute; top: 50px; z-index: 999;">Loading</h1>');
+			// },
+			// complete: function() {
+			// 	// ... your finalization code here (hide loader) ...
+			// },
 			success: function(data) {
 				var res = $(data).find('span.result_synset').parent("a").attr("href");
 				var wnid = res.split('=')[1];
 				$.ajax({
 					url: 'http://www.image-net.org/api/text/imagenet.synset.geturls?wnid='+wnid,
 					type: 'GET',
-					async: false,
+					// async: false,
 
 					success: function(img_urls) {
 						var res = img_urls.split('\n')
@@ -82,6 +88,10 @@ if(!pic_note_init){
 						tmp_img_urls = [];
 						tmp_img_urls = tmp_img_urls.concat(res);
 						console.log(tmp_img_urls[img_urls_count]);
+
+						$('.search_result').empty();
+						$('.search_result').append('<img id="search_img" src="' + tmp_img_urls[img_urls_count] + '" width="220" height="165"><br/>');
+						console.log('Succeed!');
 					},
 					error: function(err){
 						console.log(err);
@@ -93,9 +103,16 @@ if(!pic_note_init){
 			}
 		});
 
+		// $('.modal-body').empty();
+		// $('.modal-body').append('<p>Loading</p>');
+		// $('.modal-footer').empty();
+		// console.log('Loading');
+
 		// Modal Body
 		$('.modal-body').empty();
-		$('.modal-body').append('<img id="search_img" src="' + tmp_img_urls[img_urls_count] + '" width="220" height="165"><br/>');
+		// $('.modal-body').append('<img id="search_img" src="' + tmp_img_urls[img_urls_count] + '" width="220" height="165"><br/>');
+		$('.modal-body').append('<div class="search_result"></div>');
+		$('.search_result').append('<p>Loading</p>');
 		$('.modal-body').append('<br/>');
 		$('.modal-body').append('<button type="button" class="searchBtn btn btn-success" id="prev_searchBtn">Previous</button>');
 		$('.modal-body').append('<button type="button" class="searchBtn btn btn-success" id="next_searchBtn">Next</button>');
@@ -104,8 +121,6 @@ if(!pic_note_init){
 		$('.modal-footer').empty();
 		$('.modal-footer').append('<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>');
 		$('.modal-footer').append('<button type="button" class="btn btn-primary" data-dismiss="modal" id="select_imgBtn">Select</button>');
-
-		console.log('Succeed!');
 
 	});
 
@@ -153,7 +168,7 @@ if(!pic_note_init){
 					.attr("width", "200")
 					.attr("id", "img_" + keyword_in);
 				
-				var x = keyword_left; // $('#keyword_'+keyword_in).offset().left;
+				var x = keyword_left + $('#keyword_'+keyword_in).width(); // $('#keyword_'+keyword_in).offset().left;
 				var y = keyword_top + $('#keyword_'+keyword_in).height()/2; // $('#keyword_'+keyword_in).offset().top + $('#keyword_'+keyword_in).height()/2;
 				var h = $('#keyword_'+keyword_in).height();
 				// console.log('x: ' + x + ' y: ' + y);
