@@ -1,6 +1,10 @@
-// console.log(init);
+
 if(!pic_note_init){
+
 	// Init variables
+
+	console.log('Content_scripts!');
+
 	var show = true;
 	var lock = false;
 	var img = '<button onclick="loadImage()" type="button" class="btn btn-primary">Load</button>';
@@ -26,13 +30,13 @@ if(!pic_note_init){
 	});
 
 	// Assign each word an event
-	var p = $('.vivid_note_content_p');
-	p
-	.html(function(index, oldHtml) {
-		return oldHtml.replace(/\b(\w+?)\b/g, '<span class="keyword" id="keyword_$1' + '"" style="cursor:pointer;" data-toggle="modal" data-target="#searchBox">$1</span>')
-	})
-	.click(function(event) { 
-	});
+	// var p = $('.vivid_note_content_p');
+	// p
+	// .html(function(index, oldHtml) {
+	// 	return oldHtml.replace(/\b(\w+?)\b/g, '<span class="keyword" id="keyword_$1' + '"" style="cursor:pointer;" data-toggle="modal" data-target="#searchBox">$1</span>')
+	// })
+	// .click(function(event) { 
+	// });
 
 	// Mouse Events
 	$(".keyword").mouseenter(function() {

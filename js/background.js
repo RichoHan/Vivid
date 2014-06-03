@@ -17,6 +17,7 @@ chrome.browserAction.onClicked.addListener(function(tab) {
 						// insert js at the first time
 						chrome.tabs.executeScript({file: "js/vivid.js"});
 						chrome.tabs.executeScript({file: "js/pic_note.js"});
+						
 						// then the state # will increase
 						// thus, when extension is executed after the second time,
 						// the pic_note.js will not be inserted again

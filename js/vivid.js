@@ -32,6 +32,13 @@ if(!vivid_init){
 
 			$('body').append('<div class="modal fade" id="searchBox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><div class="modal-dialog modal-sm"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel">Modal title</h4></div><div class="modal-body"></div><div class="modal-footer"></div></div></div></div>');
 
+			// Assign each word an event
+			var p = $('.vivid_note_content_p');
+			p
+			.html(function(index, oldHtml) {
+				return oldHtml.replace(/\b(\w+?)\b/g, '<span class="keyword" id="keyword_$1' + '"" style="cursor:pointer;" data-toggle="modal" data-target="#searchBox">$1</span>')
+			})
+
 		}
 	);
 
