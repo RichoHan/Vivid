@@ -3,25 +3,27 @@
   "description": "Taking note on websites",
   "version": "0.2",
   "permissions": [
-    "<all_urls>",
-    "activeTab"
+    // "<all_urls>",
+    "http://en.wikipedia.org/*"
+    // "activeTab"
   ],
   "background": {
-    "scripts": ["js/jquery-2.1.0.min.js", "js/bootstrap.min.js", "js/background.js", "js/vivid.js"],
-    "css": ["stylesheets/styles.css", "css/bootstrap.min.css"],
+    "scripts": ["js/background.js"],
+    "css": ["css/bootstrap.min.css", "css/bootflat.min.css", "stylesheets/styles.css"],
     "persistent": false
   },
   "browser_action": {
     "default_title": "Testing"
   },
+  // "web_accessible_resources": ["js/pic_note.js"] ,
   // "content_scripts": [
-  //       {
-  //           "matches": ["<all_urls>"],
-  //           "js": ["js/jquery-2.1.0.min.js", "js/content_scripts.js"],
-  //           "css": ["stylesheets/styles.css"],
-  //           "run_at": "document_end"
-  //           // "all_frames": true
-  //       }
-  //   ],
+  //   {
+  //     "matches": ["http://en.wikipedia.org/*"],
+  //     "js": ["js/jquery-2.1.0.min.js", "js/bootstrap.min.js", "js/pic_note.js"],
+  //     "css": ["css/bootstrap.min.css"],
+  //     "run_at": "document_end"
+  //     // "all_frames": true
+  //   }
+  // ],
   "manifest_version": 2
 }
