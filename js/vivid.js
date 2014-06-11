@@ -1,14 +1,13 @@
 var url=window.location.toString();
 
 if(!vivid_init){
-	console.log('State:'+state);
+	// console.log('State:'+state);
 	console.log('Fetching...');
 	// Extract the pure content of the webpage
 	// $.getJSON("https://www.readability.com/api/content/v1/parser?url="+ url +"&token=5a2ddd762b80b65f061bd17c984e61f32b50bdf4",
 	$.getJSON("http://boilerpipe-web.appspot.com/extract?url=" + url + "&output=json",
 	// $.getJSON("http://juicer.herokuapp.com/api/article?url=" + url + "",
 		function (data) {
-			console.log(data);
 			var content = data.response.content;
 			// var content = data.article.body;
 

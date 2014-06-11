@@ -1,10 +1,6 @@
 
 if(!pic_note_init){
 
-	// Init variables
-
-	console.log('Content_scripts!');
-
 	var show = true;
 	var lock = false;
 	var img = '<button onclick="loadImage()" type="button" class="btn btn-primary">Load</button>';
@@ -27,6 +23,10 @@ if(!pic_note_init){
 
 	$("#vivid_PN").click(function() {
 		console.log("Picture Note-taking!");
+	});
+
+	$("#vivid_MT").click(function() {
+		console.log("Machine Translation!");
 	});
 
 	// Assign each word an event
@@ -56,7 +56,8 @@ if(!pic_note_init){
 	})
 	.click(function(event) {
 
-		var keyword = $(this).text();
+		var keyword = stemmer($(this).text(), true);
+		// console.log(stemmer(keyword, true));
 		var uid = guid();
 
 		$('#myModalLabel').text(keyword + '_' + uid);
@@ -80,27 +81,32 @@ if(!pic_note_init){
 			// },
 			success: function(data) {
 				var res = $(data).find('span.result_synset').parent("a").attr("href");
-				var wnid = res.split('=')[1];
-				$.ajax({
-					url: 'http://www.image-net.org/api/text/imagenet.synset.geturls?wnid='+wnid,
-					type: 'GET',
-					// async: false,
+				if(typeof res != 'undefined'){
+					var wnid = res.split('=')[1];
+					$.ajax({
+						url: 'http://www.image-net.org/api/text/imagenet.synset.geturls?wnid='+wnid,
+						type: 'GET',
+						// async: false,
 
-					success: function(img_urls) {
-						var res = img_urls.split('\n')
-						img_urls_count = 0;
-						tmp_img_urls = [];
-						tmp_img_urls = tmp_img_urls.concat(res);
-						console.log(tmp_img_urls[img_urls_count]);
+						success: function(img_urls) {
+							var res = img_urls.split('\n')
+							img_urls_count = 0;
+							tmp_img_urls = [];
+							tmp_img_urls = tmp_img_urls.concat(res);
+							console.log(tmp_img_urls[img_urls_count]);
 
-						$('.search_result').empty();
-						$('.search_result').append('<img id="search_img" src="' + tmp_img_urls[img_urls_count] + '" width="220" height="165"><br/>');
-						console.log('Succeed!');
-					},
-					error: function(err){
-						console.log(err);
-					}
-				});
+							$('.search_result').empty();
+							$('.search_result').append('<img id="search_img" src="' + tmp_img_urls[img_urls_count] + '" width="220" height="165"><br/>');
+							console.log('Succeed!');
+						},
+						error: function(err){
+							console.log(err);
+						}
+					});
+				}else{
+					$('.search_result').empty();
+					$('.search_result').append('<p>Not found.</p>');
+				}
 			},
 			error: function(err){
 				console.log(err);

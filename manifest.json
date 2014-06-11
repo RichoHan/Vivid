@@ -4,7 +4,9 @@
   "version": "0.2",
   "permissions": [
     // "<all_urls>",
-    "http://en.wikipedia.org/*"
+    "http://en.wikipedia.org/*",
+    "http://*/",
+    "storage"
     // "activeTab"
   ],
   "background": {
