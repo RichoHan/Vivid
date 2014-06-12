@@ -30,10 +30,10 @@ chrome.browserAction.onClicked.addListener(function(tab) {
 						// chrome.tabs.executeScript({file: "js/vivid.js"});
 						chrome.tabs.executeScript({code: "var pic_note_init = " + pic_note_init + ";" + "var vivid_init = " + vivid_init + ";" + "var state = " + state + ";"},function () {
 							// insert js at the first time
-							if(!vivid_init)
-								chrome.tabs.executeScript({file: "js/vivid.js"});
-							if(!pic_note_init)
-								chrome.tabs.executeScript({file: "js/pic_note.js"});
+							// if(!vivid_init)
+							chrome.tabs.executeScript({file: "js/vivid.js"});
+							// if(!pic_note_init)
+							chrome.tabs.executeScript({file: "js/pic_note.js"});
 							
 						});
 					});

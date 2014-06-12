@@ -1,4 +1,3 @@
-
 if(!pic_note_init){
 
 	var show = true;
@@ -16,27 +15,22 @@ if(!pic_note_init){
 	var keyword_left;
 	var keyword_top;
 
+	// For MT
+	var stringToBeTranslated = "";
+
 	// Button events
 	$("#vivid_BK").click(function() { 
-		alert("test");
+		$("#vivid_PN").attr('class', 'btn btn-primary');
+		$('#vivid_MT').attr('class', 'btn btn-primary');
 	});
 
 	$("#vivid_PN").click(function() {
-		console.log("Picture Note-taking!");
+		// $("#vivid_PN").attr('class', 'btn btn-primary disabled');
+		// $('#vivid_MT').attr('class', 'btn btn-primary');
 	});
 
-	$("#vivid_MT").click(function() {
-		console.log("Machine Translation!");
-	});
-
-	// Assign each word an event
-	// var p = $('.vivid_note_content_p');
-	// p
-	// .html(function(index, oldHtml) {
-	// 	return oldHtml.replace(/\b(\w+?)\b/g, '<span class="keyword" id="keyword_$1' + '"" style="cursor:pointer;" data-toggle="modal" data-target="#searchBox">$1</span>')
-	// })
-	// .click(function(event) { 
-	// });
+	document.onmouseup = gText;
+	if (!document.all) document.captureEvents(Event.MOUSEUP);
 
 	// Mouse Events
 	$(".keyword").mouseenter(function() {
@@ -216,5 +210,46 @@ if(!pic_note_init){
 	var guid = function() {
 		return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
 	}
+
+	var t = '';
+	function gText(e) {
+		t = (document.all) ? document.selection.createRange().text : document.getSelection();
+		stringToBeTranslated = t;
+		// document.getElementById('input').value = t;
+	}
+
+	$("#vivid_MT").click(function() {
+		// $("#vivid_PN").attr('class', 'btn btn-primary');
+		// $('#vivid_MT').attr('class', 'btn btn-primary disabled');
+		if(stringToBeTranslated!=""){
+		
+			// Modal Body
+			$('.modal-body').empty();
+			$('.modal-body').append('<div class="translation_result"></div>');
+			$('.translation_result').append('<p>' + stringToBeTranslated + '</p>');
+
+			// Modal Footer
+			$('.modal-footer').empty();
+			$('.modal-footer').append('<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>');
+			$('.modal-footer').append('<button type="button" class="btn btn-primary" data-dismiss="modal" id="appendMTBtn">Append</button>');
+		}
+		stringToBeTranslated = "";
+	});
+
+	// Machine Translation Events
+	$('#MTBox')
+	.on('shown.bs.modal', function () {
+
+		var appendMT = function () {
+			console.log(stringToBeTranslated);
+
+		};
+
+		$('#appendMTBtn').click(function(event) {
+			appendMT();
+			$('#MTBox').modal('hide');
+		});
+
+	});
 
 }
