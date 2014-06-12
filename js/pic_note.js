@@ -56,7 +56,10 @@ if(!pic_note_init){
 		// Modal Body
 		$('.modal-body').empty();
 		$('.modal-body').append('<div class="translation_result"></div>');
-		$('.translation_result').append('<p>' + stringToBeTranslated + '</p>');
+		$.getJSON('http://127.0.0.1:5000/query?q=' + stringToBeTranslated, function(data){
+			$('.translation_result').append('<p>' + data['result'] + '</p>');	
+		});
+		
 
 		// Modal Footer
 		$('.modal-footer').empty();
