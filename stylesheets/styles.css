@@ -1,3 +1,7 @@
+body{
+	background-image: url('chrome-extension://__MSG_@@extension_id__/image/congruent_pentagon.png');
+}
+
 #vivid_note_reformat{
 	/*background-color: #6FB7B7;*/
 	width:100%;

@@ -17,7 +17,7 @@
   "browser_action": {
     "default_title": "Testing"
   },
-  // "web_accessible_resources": ["js/pic_note.js"] ,
+  "web_accessible_resources": ["image/congruent_pentagon.png"] ,
   // "content_scripts": [
   //   {
   //     "matches": ["http://en.wikipedia.org/*"],
