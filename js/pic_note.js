@@ -17,6 +17,7 @@ if(!pic_note_init){
 
 	// For MT
 	var stringToBeTranslated = "";
+	var stringAfterTranslated = "";
 	var t = '';
 
 	function gText(e) {
@@ -58,6 +59,7 @@ if(!pic_note_init){
 		$('.modal-body').append('<div class="translation_result"></div>');
 		$.getJSON('http://127.0.0.1:5000/query?q=' + stringToBeTranslated, function(data){
 			$('.translation_result').append('<p>' + data['result'] + '</p>');	
+			stringAfterTranslated = data['result'];
 		});
 		
 
@@ -253,7 +255,7 @@ if(!pic_note_init){
 					.attr("id", "MT_"+uid)
 					.attr("width", "200")
 					.attr("style", "text-align: center; border: solid #ff7575;")
-					.text($('#'+uid).text());
+					.text(stringAfterTranslated);
 
 			}else{
 
@@ -261,7 +263,7 @@ if(!pic_note_init){
 					.attr("id", "MT_"+uid)
 					.attr("width", "200")
 					.attr("style", "text-align: center; border: solid red;")
-					.text($('#'+uid).text());
+					.text(stringAfterTranslated);
 
 			}
 
@@ -273,6 +275,7 @@ if(!pic_note_init){
 			})
 
 			stringToBeTranslated = "";
+			stringAfterTranslated = "";
 
 		}
 
