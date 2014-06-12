@@ -16,6 +16,11 @@
 	font-size: 18px;
 }
 
+.vivid_note_content_MT{
+	line-height: 30px;
+	font-size: 18px;
+}
+
 #vivid_note_tool{
 	background-color: #01B468;
 	width: 120px;
@@ -27,12 +32,12 @@
 	right: 0;
 }
 
-#vivid_BK{
+#vivid_MT{
 	margin-top: 200px;
 	width: 100px;
 }
 
-#vivid_SV, #vivid_MT, #vivid_PN{
+#vivid_PN, #vivid_MT_hide{
 	margin-top: 10px;
 	width: 100px;
 }

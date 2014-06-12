@@ -21,62 +21,48 @@ if(!pic_note_init){
 
 	function gText(e) {
 		t = (document.all) ? document.selection.createRange().text : document.getSelection();
-		// document.getSelection()[0].setAttribute("color","red");
-		// window.getSelection().empty();
 		stringToBeTranslated = t;
 
-		// var selection;
-
-		// //Get the selected stuff
-		// if(window.getSelection) 
-		// 	selection = window.getSelection();
-		// else if(typeof document.selection!="undefined")
-		// 	selection = document.selection;
-
-		// //Get a the selected content, in a range object
-		// var range = selection.getRangeAt(0);
-		// console.log(selection);
-
-		// //If the range spans some text, and inside a tag, set its css class.
-		// if(range && !selection.isCollapsed){
-		// 	if(selection.anchorNode.parentNode == selection.focusNode.parentNode){
-		// 		var span = document.createElement('span');
-		// 		span.className = 'highlight-green';
-		// 		console.log(span);
-		// 		range.surroundContents(span);
-		// 	}
-		// }
+		if(stringToBeTranslated!=""){
+			
+		}
 	}
 	document.onmouseup = gText;
 	if (!document.all) document.captureEvents(Event.MOUSEUP);
 
 	$("#vivid_MT").click(function() {
-		// $("#vivid_PN").attr('class', 'btn btn-primary');
-		// $('#vivid_MT').attr('class', 'btn btn-primary disabled');
-		if(stringToBeTranslated!=""){
-			$('#myModalLabel').text('Machine Translation');
-			// Modal Body
-			$('.modal-body').empty();
-			$('.modal-body').append('<div class="translation_result"></div>');
-			$('.translation_result').append('<p>' + stringToBeTranslated + '</p>');
+		$('.vivid_note_content_p').hide();
+		$('.vivid_note_content_MT').show();
+		$("#vivid_PN").attr('class', 'btn btn-primary');
+		$('#vivid_MT').attr('class', 'btn btn-primary disabled');
 
-			// Modal Footer
-			$('.modal-footer').empty();
-			$('.modal-footer').append('<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>');
-			$('.modal-footer').append('<button type="button" class="btn btn-primary" data-dismiss="modal" id="appendMTBtn">Append</button>');
-		}
-		stringToBeTranslated = "";
 	});
 
 	// Button events
-	$("#vivid_BK").click(function() { 
-		$("#vivid_PN").attr('class', 'btn btn-primary');
-		$('#vivid_MT').attr('class', 'btn btn-primary');
-	});
+	// $("#vivid_BK").click(function() { 
+	// 	$("#vivid_PN").attr('class', 'btn btn-primary');
+	// 	$('#vivid_MT').attr('class', 'btn btn-primary');
+	// });
 
 	$("#vivid_PN").click(function() {
-		// $("#vivid_PN").attr('class', 'btn btn-primary disabled');
-		// $('#vivid_MT').attr('class', 'btn btn-primary');
+		$("#vivid_PN").attr('class', 'btn btn-primary disabled');
+		$('#vivid_MT').attr('class', 'btn btn-primary');
+		$('.vivid_note_content_MT').hide();
+		$('.vivid_note_content_p').show();
+	});
+
+	$('#vivid_MT_hide').click(function() {
+		$('#myModalLabel').text('Machine Translation');
+		// Modal Body
+		$('.modal-body').empty();
+		$('.modal-body').append('<div class="translation_result"></div>');
+		$('.translation_result').append('<p>' + stringToBeTranslated + '</p>');
+
+		// Modal Footer
+		$('.modal-footer').empty();
+		$('.modal-footer').append('<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>');
+		$('.modal-footer').append('<button type="button" class="btn btn-primary" data-dismiss="modal" id="appendMTBtn">Append</button>');
+		// $('#vivid_MT_hide').click();
 	});
 
 	// Mouse Events
@@ -246,62 +232,50 @@ if(!pic_note_init){
 
 		var appendMT = function () {
 			// console.log(stringToBeTranslated);
-			d3.select(".pic_area_left").append("p")
-				.attr("width", "200")
-				.attr("style", "text-align: center; border: solid red;")
-				.text(stringToBeTranslated);
 
-			// var obj_coordinate = $('#keyword_'+keyword_in).offset().left + $('#keyword_'+keyword_in).width()/2;
-			// if(obj_coordinate<$( window ).width()/2){
-			// 	d3.select(".pic_area_left").append("img")
-			// 		.attr("src", tmp_img_urls[img_urls_count])
-			// 		.attr("width", "200")
-			// 		.attr("id", "img_" + keyword_in);
-				
-			// 	var x = keyword_left; // $('#keyword_'+keyword_in).offset().left;
-			// 	var y = keyword_top + $('#keyword_'+keyword_in).height()/2; // $('#keyword_'+keyword_in).offset().top + $('#keyword_'+keyword_in).height()/2;
-			// 	var h = $('#keyword_'+keyword_in).height();
-			// 	// console.log('x: ' + x + ' y: ' + y);
+			var uid = guid();
 
-			// 	var img_x = $("#img_"+keyword_in).offset().left + $("#img_"+keyword_in).width();
-			// 	var img_y = $("#img_"+keyword_in).offset().top + $("#img_"+keyword_in).height()/2; 
+			var tr = stringToBeTranslated.getRangeAt(0);
+			var span = document.createElement("span");
+			span.style.cssText = "background-color: #ff7575";
+			span.id = uid;
+			span.className = "MT";
+			tr.surroundContents(span);
 
-			// // 	left = false;
-			// }else{
-			// 	d3.select(".pic_area_right").append("img")
-			// 		.attr("src", tmp_img_urls[img_urls_count])
-			// 		.attr("width", "200")
-			// 		.attr("id", "img_" + keyword_in);
-				
-			// 	var x = keyword_left + $('#keyword_'+keyword_in).width(); // $('#keyword_'+keyword_in).offset().left;
-			// 	var y = keyword_top + $('#keyword_'+keyword_in).height()/2; // $('#keyword_'+keyword_in).offset().top + $('#keyword_'+keyword_in).height()/2;
-			// 	var h = $('#keyword_'+keyword_in).height();
-			// 	// console.log('x: ' + x + ' y: ' + y);
+			var obj_coordinate = $('#'+uid).offset().left + $('#'+uid).width()/2;
 
-			// 	var img_x = $("#img_"+keyword_in).offset().left;
-			// 	var img_y = $("#img_"+keyword_in).offset().top + $("#img_"+keyword_in).height()/2;
+			if(obj_coordinate<$( window ).width()/2){
 
-			// // 	left = true;
-			// }
+				d3.select(".pic_area_left").append("p")
+					.attr("id", "MT_"+uid)
+					.attr("width", "200")
+					.attr("style", "text-align: center; border: solid #ff7575;")
+					.text($('#'+uid).text());
 
-			// var svgcanvas = d3.select("#svgcanvas");
-			// // (1) Specifying path data the SVG way
-			// svgcanvas.append("svg:path")
-			// 	.attr("d","M " + img_x + " " + img_y + " L " + x + " " + y)
-			// 	.attr("id", "path_" + keyword_in)
-			// 	.transition().duration(1000)
-			// 	.style("stroke-width", 2)
-			// 	.style("stroke", "#97CBFF")
-			// 	.style("fill", "none");
+			}else{
 
-			// $('#keyword_'+keyword_in).css('background','#98F5FF');
+				d3.select(".pic_area_right").append("p")
+					.attr("id", "MT_"+uid)
+					.attr("width", "200")
+					.attr("style", "text-align: center; border: solid red;")
+					.text($('#'+uid).text());
+
+			}
+
+			$("#"+uid).mouseenter(function() {
+				d3.select("#MT_"+uid).style("background-color", "yellow");
+			})
+			.mouseleave(function() {
+				d3.select("#MT_"+uid).style("background-color", "white");
+			})
+
+			stringToBeTranslated = "";
 
 		}
 
 		$('#appendMTBtn').click(function(event) {
 			appendMT();
 			$('.MTBox').modal('hide');
-			window.getSelection().empty();
 		});
 
 	});
