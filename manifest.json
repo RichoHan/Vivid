@@ -3,24 +3,21 @@
   "description": "Taking note on websites",
   "version": "0.3",
   "permissions": [
-    "http://*/",
+    "http://*/"
   ],
   "background": {
-    "scripts": ["js/background.js"],
-    "css": ["css/bootstrap.min.css", "css/bootflat.min.css", "stylesheets/styles.css"],
-    "persistent": false
+    "scripts": ["js/jquery-2.1.1.min.js", "js/background.js"],
+    "persistent": true
   },
   "browser_action": {
+    "default_icon": "image/icon.png",
     "default_title": "Vivid"
   },
-  // "content_scripts": [
-  //   {
-  //     "matches": ["http://en.wikipedia.org/*"],
-  //     "js": ["js/jquery-2.1.0.min.js", "js/bootstrap.min.js", "js/pic_note.js"],
-  //     "css": ["css/bootstrap.min.css"],
-  //     "run_at": "document_end"
-  //     // "all_frames": true
-  //   }
-  // ],
+  "icons": {
+    "16": "image/icon16.png",
+    "24": "image/icon24.png",
+    "48": "image/icon48.png",
+    "128": "image/icon128.png"
+  },
   "manifest_version": 2
 }
