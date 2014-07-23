@@ -1,13 +1,9 @@
 {
   "name": "Vivid",
   "description": "Taking note on websites",
-  "version": "0.2",
+  "version": "0.3",
   "permissions": [
-    // "<all_urls>",
-    "http://en.wikipedia.org/*",
     "http://*/",
-    "storage"
-    // "activeTab"
   ],
   "background": {
     "scripts": ["js/background.js"],
@@ -15,9 +11,8 @@
     "persistent": false
   },
   "browser_action": {
-    "default_title": "Testing"
+    "default_title": "Vivid"
   },
-  "web_accessible_resources": ["image/congruent_pentagon.png"] ,
   // "content_scripts": [
   //   {
   //     "matches": ["http://en.wikipedia.org/*"],
