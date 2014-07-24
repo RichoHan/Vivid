@@ -3,7 +3,8 @@
   "description": "Taking note on websites",
   "version": "0.3",
   "permissions": [
-    "http://*/"
+    "http://*/",
+    "tabs"
   ],
   "background": {
     "scripts": ["js/jquery-2.1.1.min.js", "js/background.js"],
